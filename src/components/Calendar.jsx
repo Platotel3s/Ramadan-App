@@ -1,28 +1,35 @@
-import { faCalendar } from "@fortawesome/free-solid-svg-icons";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Calendar({ calendar, toggleDay }) {
-  return (
-    <div className="bg-white p-4 rounded-2xl shadow">
-      <h2 className="font-semibold text-green-700 mb-3">
-        <FontAwesomeIcon icon={faCalendar}/> Kalender Ramadhan
-      </h2>
+  const weeks = [];
+  for (let i = 0; i < calendar.length; i += 7) {
+    weeks.push(calendar.slice(i, i + 7));
+  }
 
-      <div className="grid grid-cols-5 md:grid-cols-10 gap-2">
-        {calendar.map((item, i) => (
-          <div
-            key={i}
-            onClick={() => toggleDay(i)}
-            className={`cursor-pointer text-center p-2 rounded-xl font-semibold ${
-              item.done
-                ? "bg-green-500 text-white"
-                : "bg-yellow-100 text-green-700"
-            }`}
-          >
-            {item.day}
-          </div>
-        ))}
-      </div>
+  return (
+    <div className="space-y-2">
+      {weeks.map((week, weekIndex) => (
+        <div key={weekIndex} className="grid grid-cols-7 gap-2">
+          {week.map((day) => (
+            <button
+              key={day.day}
+              onClick={() => toggleDay(day.day - 1)}
+              className={`
+                aspect-square rounded-xl flex flex-col items-center justify-center
+                transition-all transform hover:scale-105 font-medium
+                ${day.done 
+                  ? 'bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg shadow-emerald-500/30' 
+                  : 'bg-slate-900/50 text-slate-300 hover:bg-slate-800 border border-emerald-500/10'
+                }
+              `}
+            >
+              <span className="text-sm">{day.day}</span>
+              {day.done && <span className="text-xs mt-0.5"><FontAwesomeIcon icon={faCheck}/></span>}
+            </button>
+          ))}
+        </div>
+      ))}
     </div>
   );
 }
