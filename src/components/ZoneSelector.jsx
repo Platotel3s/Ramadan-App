@@ -1,8 +1,11 @@
+import { faLocation } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 export default function ZoneSelector({ zone, setZone, city, setCity, indonesiaZones }) {
   return (
     <div>
       <h3 className="text-lg font-semibold text-emerald-400 mb-3 flex items-center gap-2">
-        <span>📍</span> Lokasi
+        <span><FontAwesomeIcon icon={faLocation}/></span> Lokasi
       </h3>
       <div className="flex gap-3">
         <select 
